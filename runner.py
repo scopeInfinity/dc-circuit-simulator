@@ -128,13 +128,11 @@ class Sim:
             assert changes_count < 10000, "stuck or circuit too big"
 
     def step(self):
-        for i in range(100):
-            self.process()
-        self.draw()
-        time.sleep(0.1)
+        self.process()
 
-    def draw(self):
-        print("\x1b[2J") # clear screen
+    def draw(self, clrscr=True):
+        if clrscr:
+            print("\x1b[2J") # clear screen
         print("# Button(s)")
         for c in hcomponent.filter_components(self.circuit.components, "button"):
             label = f"{c.button.label:^10s}"
@@ -153,6 +151,11 @@ class Sim:
         print()
         print()
 
+    def print(self):
+        print(self.circuit)
+
     def run(self):
         while(True):
             self.step()
+            self.draw()
+            time.sleep(0.1)
