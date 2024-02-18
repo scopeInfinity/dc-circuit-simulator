@@ -21,7 +21,7 @@ def main():
     parser = parse_args()
     args = parser.parse_args()
     config = get_config(args.config)
-    sim = runner.Sim(config)
+    sim = runner.Sim(config, is_interactive=args.interactive)
     if args.print_circuit or args.draw_circuit:
         sim.step()
         if args.draw_circuit:
