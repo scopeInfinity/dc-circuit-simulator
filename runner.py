@@ -1,4 +1,3 @@
-from pynput import keyboard
 from typing import Union
 import logging
 import termcolor
@@ -16,11 +15,12 @@ _LedColorToTermColor = {
 }
 
 class Sim:
-    def __init__(self, config: circuit_pb2.Simulator):
+    def __init__(self, config: circuit_pb2.Simulator, is_interactive=True):
         self.humanize_auto_terminal = {}
         self.circuit = config.circuit
         self.prep_circuit()
-        self.prep_button_and_handler()
+        if is_interactive:
+            self.prep_button_and_handler()
         self.kirchhoff = solver.KirchhoffCircuit(self.circuit)
 
     def _insert_internal_resistor(self, name, c: Union[
@@ -88,6 +88,9 @@ class Sim:
             logging.info(f"{tt} => {self.humanize_auto_terminal[tt]}")
 
     def prep_button_and_handler(self):
+        # Load package iff we need it, it's not required for non-interactive mode.
+        from pynput import keyboard
+
         allowed_keys = {}
         for index, c in enumerate(self.circuit.components):
             if c.HasField("button"):
