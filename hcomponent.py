@@ -1,5 +1,6 @@
 from typing import List
-from build import circuit_pb2
+
+from auto import circuit_pb2
 
 LED_MIN_CURRENT = 0.1e-3  # 0.1mA
 

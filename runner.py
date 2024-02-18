@@ -1,13 +1,13 @@
-import logging
-from typing import Union
-import algo
-from build import circuit_pb2
 from pynput import keyboard
+from typing import Union
+import logging
 import termcolor
 import time
 
-import solver
+from auto import circuit_pb2
+import algo
 import hcomponent
+import solver
 
 _LedColorToTermColor = {
     circuit_pb2.Led.RED: "on_red",

@@ -1,7 +1,8 @@
-from build import circuit_pb2
 from google.protobuf import text_format
-import runner
 import argparse
+
+from auto import circuit_pb2
+import runner
 
 def parse_args():
     parser = argparse.ArgumentParser(prog='Circuit Simulator')

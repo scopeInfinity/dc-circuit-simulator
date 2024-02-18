@@ -1,7 +1,8 @@
-import logging
 from typing import Optional
-from build import circuit_pb2
+import logging
 import numpy as np
+
+from auto import circuit_pb2
 import hcomponent
 
 class EquationManager:

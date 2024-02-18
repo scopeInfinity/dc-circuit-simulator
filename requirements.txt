@@ -1,0 +1,4 @@
+numpy==1.26.4
+protobuf==3.12.4
+pynput==1.7.6
+termcolor==2.4.0
