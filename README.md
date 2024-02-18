@@ -1,8 +1,13 @@
-# PSimulator
+# DC Circuit Simulator
 
-Config based electrical circuit simulator.
+Simulate electrical circuit represented in a configuration.
 
-## Build
+## Components
 
-* Install protoc
-* Compile `circuit.proto` using `protoc -I=./ --python_out=build/ circuit.proto`
+As of now following components / junctions are supported.
+
+* LED: Acts as visual signal
+* Button / Switch: Controlled using keyboard
+* Battery: DC power source
+* Resistor
+* Wires

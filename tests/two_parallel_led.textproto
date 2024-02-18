@@ -3,7 +3,7 @@ circuit {
         name: "L_RED"
         led {
             color: RED
-            anode { id: "10v" }
+            anode { id: "1v" }
             cathode { id: "0v" }
             resistor { ohms: 100 }
         }
@@ -12,7 +12,7 @@ circuit {
         name: "L_GREEN"
         led {
             color: GREEN
-            anode { id: "10v" }
+            anode { id: "1v" }
             cathode { id: "0v" }
             resistor { ohms: 200 }
         }
@@ -22,7 +22,7 @@ circuit {
         battery {
             voltage: 10
             resistor { ohms: 0 }
-            anode { id: "10v" }
+            anode { id: "1v" }
             cathode { id: "0v" }
         }
     }
