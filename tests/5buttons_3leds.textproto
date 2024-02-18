@@ -1,0 +1,125 @@
+circuit {
+    components {
+        name: "B_RED1"
+        button {
+            point_a { id: "button_red1_a" }
+            point_b { id: "button_red1_b" }
+            input { keyboard_key: "1" }
+        }
+    }
+    components {
+        name: "B_RED2"
+        button {
+            point_a { id: "button_red2_a" }
+            point_b { id: "button_red2_b" }
+            input { keyboard_key: "2" }
+        }
+    }
+    components {
+        name: "B_YELLOW"
+        button {
+            point_a { id: "button_yellow_a" }
+            point_b { id: "button_yellow_b" }
+            input { keyboard_key: "3" }
+        }
+    }
+    components {
+        name: "B_GREEN"
+        button {
+            point_a { id: "button_green_a" }
+            point_b { id: "button_green_b" }
+            input { keyboard_key: "4" }
+        }
+    }
+    components {
+        name: "L_RED"
+        led {
+            color: RED
+            anode { id: "led_red_anode" }
+            cathode { id: "led_red_cathode" }
+            resistor { ohms: 200 }
+        }
+    }
+    components {
+        name: "L_ALLRED"
+        led {
+            color: RED
+            anode { id: "led_allred_anode" }
+            cathode { id: "led_allred_cathode" }
+            resistor { ohms: 200 }
+        }
+    }
+    components {
+        name: "L_YELLOW"
+        led {
+            color: YELLOW
+            anode { id: "led_yellow_anode" }
+            cathode { id: "led_yellow_cathode" }
+            resistor { ohms: 200 }
+        }
+    }
+    components {
+        name: "L_GREEN"
+        led {
+            color: GREEN
+            anode { id: "led_green_anode" }
+            cathode { id: "led_green_cathode" }
+            resistor { ohms: 200 }
+        }
+    }
+    components {
+        name: "5V"
+        battery {
+            voltage: 5
+            resistor { ohms: 330 }
+            anode { id: "voltage_high" }
+            cathode { id: "voltage_low" }
+        }
+    }
+    components {
+        name: "R_SHORT_GREEN"
+        resistor {
+           ohms: 330
+           point_a { id: "r_green_a" }
+           point_b { id: "r_green_b" }
+        }
+    }
+    junctions {
+        terminals { id: "voltage_high" }
+        terminals { id: "button_red1_a" }
+        terminals { id: "button_yellow_a" }
+        terminals { id: "r_green_a" }
+        terminals { id: "led_allred_anode" }
+    }
+    junctions {
+        terminals { id: "button_red1_b" }
+        terminals { id: "button_red2_a" }
+    }
+    junctions {
+        terminals { id: "button_red2_b" }
+        terminals { id: "led_red_anode" }
+    }
+    junctions {
+        terminals { id: "button_yellow_b" }
+        terminals { id: "led_yellow_anode" }
+    }
+    junctions {
+        terminals { id: "r_green_b" }
+        terminals { id: "led_green_anode" }
+    }
+    junctions {
+        terminals { id: "voltage_low" }
+        terminals { id: "led_red_cathode" }
+        terminals { id: "led_yellow_cathode" }
+        terminals { id: "led_green_cathode" }
+        terminals { id: "led_allred_cathode" }
+    }
+    junctions {
+        terminals { id: "led_green_cathode" }
+        terminals { id: "button_green_b" }
+    }
+    junctions {
+        terminals { id: "led_green_anode" }
+        terminals { id: "button_green_a" }
+    }
+}

@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package ourpc;
+
+message StateVC {
+    float current = 1;
+}
+
+message Terminal {
+    string id = 1;
+}
+
+message Component {
+    string name = 1;
+    StateVC state = 2;
+    oneof component {
+        Button button = 3;
+        Led led = 4;
+        Resistor resistor = 5;
+        Battery battery = 6;
+    }
+}
+
+message Resistor {
+    int32 ohms = 1;
+    Terminal point_a = 2;
+    Terminal point_b = 3;
+}
+
+message Button {
+    string label = 1;
+    Terminal point_a = 2;
+    Terminal point_b = 3;
+
+    message Input {
+        string keyboard_key = 1;
+        bool is_pressed = 2;
+    }
+    Input input = 4;
+}
+
+message Led {
+    enum Color {
+        UNSPECIFIED = 0;
+        RED = 1;
+        YELLOW = 2;
+        GREEN = 3;
+    }
+    Color color = 2;
+    Terminal anode = 3;
+    Terminal cathode = 4;
+    // internal terminals will be auto populated
+    Resistor resistor = 5;
+}
+
+message Battery {
+    float voltage = 1;
+    Terminal anode = 2;
+    Terminal cathode = 3;
+    // internal terminals will be auto populated
+    Resistor resistor = 4;
+}
+
+message Junction {
+    // same terminal_id forms implict junction
+    repeated Terminal terminals = 1;
+}
+
+message Circuit {
+    repeated Component components = 1;
+    repeated Junction junctions = 2;
+}
+
+message Simulator {
+    Circuit circuit = 1;
+}

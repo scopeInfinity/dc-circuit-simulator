@@ -1,0 +1,29 @@
+circuit {
+    components {
+        name: "L_RED"
+        led {
+            color: RED
+            anode { id: "10v" }
+            cathode { id: "0v" }
+            resistor { ohms: 100 }
+        }
+    }
+    components {
+        name: "L_GREEN"
+        led {
+            color: GREEN
+            anode { id: "10v" }
+            cathode { id: "0v" }
+            resistor { ohms: 200 }
+        }
+    }
+    components {
+        name: "Battery"
+        battery {
+            voltage: 10
+            resistor { ohms: 0 }
+            anode { id: "10v" }
+            cathode { id: "0v" }
+        }
+    }
+}
