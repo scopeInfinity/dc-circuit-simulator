@@ -7,6 +7,7 @@ from auto import circuit_pb2
 import algo
 import hcomponent
 import solver
+import visual
 
 _LedColorToTermColor = {
     circuit_pb2.Led.RED: "on_red",
@@ -156,6 +157,9 @@ class Sim:
 
     def print(self):
         print(self.circuit)
+
+    def graphical(self, fname):
+        visual.create_circuit_image(fname, self.circuit, self.kirchhoff.get_terminal_to_components())
 
     def run(self):
         while(True):

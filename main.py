@@ -10,6 +10,7 @@ def parse_args():
     parser.add_argument('-i', '--interactive', action='store_true', help="enable interactive simulation mode")
     parser.add_argument('-pc', '--print-circuit', action='store_true', help="print circuit state with current flows")
     parser.add_argument('-dc', '--draw-circuit', action='store_true', help="visually draw circuit")
+    parser.add_argument('-gc', '--graphical-circuit', help="save graphicall image of circuit")
     return parser
 
 def get_config(file):
@@ -22,12 +23,14 @@ def main():
     args = parser.parse_args()
     config = get_config(args.config)
     sim = runner.Sim(config, is_interactive=args.interactive)
-    if args.print_circuit or args.draw_circuit:
+    if args.print_circuit or args.draw_circuit or args.graphical_circuit:
         sim.step()
         if args.draw_circuit:
             sim.draw(clrscr=False)
         if args.print_circuit:
             sim.print()
+        if args.graphical_circuit:
+            sim.graphical(args.graphical_circuit)
     elif args.interactive:
         sim.run()
     else:
