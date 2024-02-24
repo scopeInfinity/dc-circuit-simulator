@@ -1,5 +1,8 @@
 .PHONY: artifacts
 
+clean:
+	rm -r build
+
 build:
 	mkdir build
 
@@ -15,6 +18,10 @@ build/circuit_%.txt: tests/%.textproto build
 build/display_%.txt: tests/%.textproto build
 	python3 . -dc $< > $@
 
+build/display_%.png: tests/%.textproto build
+	python3 . -gc $@ $<
+
 artifacts: \
 	$(patsubst tests/%.textproto, build/circuit_%.txt,$(wildcard tests/*.textproto)) \
-	$(patsubst tests/%.textproto, build/display_%.txt,$(wildcard tests/*.textproto))
+	$(patsubst tests/%.textproto, build/display_%.txt,$(wildcard tests/*.textproto)) \
+	$(patsubst tests/%.textproto, build/display_%.png,$(wildcard tests/*.textproto))

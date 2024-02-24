@@ -78,6 +78,9 @@ class KirchhoffCircuit:
         for c in self.circuit.components:
             c.state.current = 0
 
+    def get_terminal_to_components(self):
+        return self.terminal_to_components.copy()
+
     def remap_terminals(self):
         self.terminal_to_components.clear()
         self.terminal_to_component_cvar.clear()
