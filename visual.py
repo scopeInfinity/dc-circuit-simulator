@@ -37,10 +37,18 @@ def create_circuit_image(fout, circuit, terminal_to_components):
     G = nx.Graph()
 
     color_map = {}
+    shape_map = {}
     for c in circuit.components:
+        shape = 'd'
         if c.HasField("led"):
-            if hcomponent.is_led_on(c):
-                color_map[c.name]=circuit_pb2.Led.Color.Name(c.led.color)
+            color_map[c.name]=matplotlib.colors.to_rgba(circuit_pb2.Led.Color.Name(c.led.color), 1 if hcomponent.is_led_on(c) else 0.3)
+            shape = 'o'
+        elif c.HasField("button"):
+            color_map[c.name]=matplotlib.colors.to_rgba("grey", 1 if c.button.input.is_pressed else 0.3)
+            shape = 's'
+        if shape not in shape_map:
+            shape_map[shape] = []
+        shape_map[shape].append(c.name)
         G.add_node(c.name)
 
     for t_id in terminal_to_components:
@@ -56,7 +64,10 @@ def create_circuit_image(fout, circuit, terminal_to_components):
     visual_components = [n for n in G.nodes if n not in nonvisual_components]
 
     nx.draw_networkx_labels(G, pos=pos, bbox=dict(facecolor='none', edgecolor='none'), font_size=10, labels={n:n for n in visual_components})
-    nx.draw_networkx_nodes(G, pos=pos, node_shape='o', node_size=1024*2.5, nodelist=visual_components, node_color=[color_map.get(node, 'lightgrey') for node in visual_components])
+    for shape, cnames in shape_map.items():
+        current_nodes = [n for n in visual_components if n in cnames]
+        node_color = [color_map.get(node, 'lightgrey') for node in current_nodes]
+        nx.draw_networkx_nodes(G, pos=pos, node_shape=shape, node_size=1024*2.5, nodelist=current_nodes, node_color=node_color)
     nx.draw_networkx_edges(G, pos=pos)
 
     plt.axis('off')
