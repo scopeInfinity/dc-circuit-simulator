@@ -38,6 +38,7 @@ def create_circuit_image(fout, circuit, terminal_to_components):
 
     color_map = {}
     shape_map = {}
+    label_map = {}
     for c in circuit.components:
         shape = 'd'
         if c.HasField("led"):
@@ -49,6 +50,7 @@ def create_circuit_image(fout, circuit, terminal_to_components):
         if shape not in shape_map:
             shape_map[shape] = []
         shape_map[shape].append(c.name)
+        label_map[c.name] = f"{c.name}\n({abs(c.state.current*1000):.2f} mA)"
         G.add_node(c.name)
 
     for t_id in terminal_to_components:
@@ -63,7 +65,7 @@ def create_circuit_image(fout, circuit, terminal_to_components):
     nonvisual_components = [n for n in G.nodes if n.endswith("_t")]
     visual_components = [n for n in G.nodes if n not in nonvisual_components]
 
-    nx.draw_networkx_labels(G, pos=pos, bbox=dict(facecolor='none', edgecolor='none'), font_size=10, labels={n:n for n in visual_components})
+    nx.draw_networkx_labels(G, pos=pos, bbox=dict(facecolor='none', edgecolor='none'), font_size=10, labels={n:label_map[n] for n in visual_components})
     for shape, cnames in shape_map.items():
         current_nodes = [n for n in visual_components if n in cnames]
         node_color = [color_map.get(node, 'lightgrey') for node in current_nodes]
